@@ -1,0 +1,23 @@
+development:
+  clients:
+    default:
+      hosts:
+        - localhost:27017
+      database: moviebox_development
+      options: {}
+
+test:
+  clients:
+    default:
+      hosts:
+        - localhost:27017
+      database: moviebox_test
+      options: {}
+
+production:
+  clients:
+    default:
+      hosts:
+        - localhost:27017
+      database: moviebox_production
+      options: {}
