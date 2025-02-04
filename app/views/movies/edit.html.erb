@@ -1,0 +1,21 @@
+<h1>Editar Comentário do Filme</h1>
+
+<%= form_with model: @movie, local: true do |form| %>
+  <% if @movie.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @movie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :user_comment, 'Comentário' %>
+    <%= form.text_area :user_comment, class: 'form-control' %>
+  </div>
+
+  <%= form.submit 'Atualizar Comentário', class: 'btn btn-success' %>
+<% end %>
+<%= link_to 'Voltar', movie_path(@movie), class: 'btn btn-secondary' %>

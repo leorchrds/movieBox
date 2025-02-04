@@ -1,0 +1,12 @@
+<h1><%= @movie.title %></h1>
+
+<p><strong>Ano:</strong> <%= @movie.year %></p>
+<p><strong>Gênero:</strong> <%= @movie.genre %></p>
+<p><strong>Diretor:</strong> <%= @movie.director %></p>
+<p><strong>Sinopse:</strong> <%= @movie.synopsis %></p>
+
+<h3>Comentário do Usuário</h3>
+<p><%= @movie.user_comment.presence || 'Nenhum comentário.' %></p>
+
+<%= link_to 'Editar Comentário', edit_movie_path(@movie), class: 'btn btn-primary' %>
+<%= link_to 'Voltar', movies_path, class: 'btn btn-secondary' %>

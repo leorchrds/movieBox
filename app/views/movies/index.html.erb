@@ -1,0 +1,24 @@
+<h1>Filmes Favoritos</h1>
+
+<%= link_to 'Adicionar Novo Filme', new_movie_path, class: 'btn btn-primary' %>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie.title %></td>
+        <td>
+          <%= link_to 'Ver Detalhes', movie_path(movie), class: 'btn btn-info' %>
+          <%= link_to 'Editar', edit_movie_path(movie), class: 'btn btn-warning' %>
+          <%= link_to 'Remover', movie_path(movie), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
