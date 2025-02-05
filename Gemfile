@@ -48,7 +48,8 @@ group :development do
   gem "web-console"
   gem 'mongoid', github: 'mongodb/mongoid'
   gem 'dotenv-rails'
-
+  gem 'devise'
+  
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

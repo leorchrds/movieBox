@@ -2,15 +2,31 @@
 <html>
   <head>
     <title>MovieBox</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
-
   <body>
+    <header>
+      <nav>
+        <ul>
+          <li><%= link_to "Início", root_path %></li>
+          <% if user_signed_in? %>
+            <li>
+              <p>Bem-vindo, <%= current_user.email %></p>
+            </li>
+            <li>
+              <%= form_tag(destroy_user_session_path, method: :delete, data: { confirm: "Tem certeza que deseja sair?" }) do %>
+                <%= submit_tag "Sair", style: "background: none; border: none; color: #007bff; cursor: pointer;" %>
+              <% end %>
+            </li>
+          <% else %>
+            <li><%= link_to "Entrar", new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>
