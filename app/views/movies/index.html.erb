@@ -1,24 +1,31 @@
-<h1>Filmes Favoritos</h1>
+<!-- app/views/movies/index.html.erb -->
 
-<%= link_to 'Adicionar Novo Filme', new_movie_path, class: 'btn btn-primary' %>
+<h1>Favoritos</h1>
 
-<table class="table mt-3">
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.title %></td>
-        <td>
-          <%= link_to 'Ver Detalhes', movie_path(movie), class: 'btn btn-info' %>
-          <%= link_to 'Editar', edit_movie_path(movie), class: 'btn btn-warning' %>
-          <%= link_to 'Remover', movie_path(movie), method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= link_to 'Adicionar novo filme', new_movie_path, class: 'btn btn-primary' %>
+
+<h2>Buscar Filmes</h2>
+<%= form_with url: search_movies_path, method: :get, local: true do |form| %>
+  <%= form.label :query, 'Título do filme:' %>
+  <%= form.text_field :query, class: 'form-control' %>
+  <%= form.submit 'Buscar', class: 'btn btn-success' %>
+<% end %>
+
+<h2>Filmes Favoritos</h2>
+<% @movies.each do |movie| %>
+  <div>
+    <h3><%= movie.title %></h3>
+    <%= link_to 'Ver detalhes', movie_path(movie), class: 'btn btn-info' %>
+  </div>
+<% end %>
+
+<% if @movies.empty? && @movies.any? { |movie| movie['Title'] } %>
+  <h3>Resultados da Busca</h3>
+  <% @movies.each do |movie| %>
+    <div class="movie">
+      <h3><%= movie["Title"] %> (<%= movie["Year"] %>)</h3>
+      <img src="<%= movie['Poster'] %>" alt="<%= movie["Title"] %>" />
+      <%= link_to 'Adicionar aos favoritos', new_movie_path(title: movie["Title"], year: movie["Year"], genre: movie["Genre"], director: movie["Director"], synopsis: movie["Plot"]), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>

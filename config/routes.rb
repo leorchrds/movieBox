@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :movies
   root "movies#index"
+  
+   # pesquisa de filmes
+   get 'movies/search', to: 'movies#search', as: 'search_movies'
+
+   resources :movies, only: [:index, :show, :new, :create, :edit]
 end

@@ -1,3 +1,5 @@
+<!-- app/views/movies/show.html.erb -->
+
 <h1><%= @movie.title %></h1>
 
 <p><strong>Ano:</strong> <%= @movie.year %></p>
@@ -5,8 +7,12 @@
 <p><strong>Diretor:</strong> <%= @movie.director %></p>
 <p><strong>Sinopse:</strong> <%= @movie.synopsis %></p>
 
-<h3>Comentário do Usuário</h3>
-<p><%= @movie.user_comment.presence || 'Nenhum comentário.' %></p>
+<h3>Comentários do usuário:</h3>
+<%= form_with model: @movie, local: true do |form| %>
+  <%= form.label :user_comment, 'Comente sobre o filme' %>
+  <%= form.text_area :user_comment, class: 'form-control' %>
+  <%= form.submit 'Salvar comentário', class: 'btn btn-success' %>
+<% end %>
 
-<%= link_to 'Editar Comentário', edit_movie_path(@movie), class: 'btn btn-primary' %>
+<%= link_to 'Editar filme', edit_movie_path(@movie), class: 'btn btn-warning' %> |
 <%= link_to 'Voltar', movies_path, class: 'btn btn-secondary' %>
