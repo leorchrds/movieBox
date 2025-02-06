@@ -1,24 +1,19 @@
 <!-- app/views/movies/index.html.erb -->
-
-<h1>Favoritos</h1>
-
 <%= link_to 'Adicionar novo filme', new_movie_path, class: 'btn btn-primary' %>
-
 <h2>Buscar Filmes</h2>
 <%= form_with url: search_movies_path, method: :get, local: true do |form| %>
   <%= form.label :query, 'Título do filme:' %>
   <%= form.text_field :query, class: 'form-control' %>
   <%= form.submit 'Buscar', class: 'btn btn-success' %>
 <% end %>
-
 <h2>Filmes Favoritos</h2>
 <% @movies.each do |movie| %>
   <div>
     <h3><%= movie.title %></h3>
+    <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="max-width: 150px; height: auto;">
     <%= link_to 'Ver detalhes', movie_path(movie), class: 'btn btn-info' %>
   </div>
 <% end %>
-
 <% if @movies.empty? && @movies.any? { |movie| movie['Title'] } %>
   <h3>Resultados da Busca</h3>
   <% @movies.each do |movie| %>

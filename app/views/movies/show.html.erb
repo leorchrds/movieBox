@@ -6,6 +6,7 @@
 <p><strong>Gênero:</strong> <%= @movie.genre %></p>
 <p><strong>Diretor:</strong> <%= @movie.director %></p>
 <p><strong>Sinopse:</strong> <%= @movie.synopsis %></p>
+<img src="<%= @movie.poster %>" alt="<%= @movie.title %>" style="max-width: 150px; height: auto;">
 
 <h3>Comentários do usuário:</h3>
 <%= form_with model: @movie, local: true do |form| %>

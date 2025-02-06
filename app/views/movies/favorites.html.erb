@@ -1,0 +1,13 @@
+<h1>Meus Filmes Favoritos</h1>
+<% if @movies.any? %>
+  <% @movies.each do |movie| %>
+    <div>
+      <h3><%= movie.title %> (<%= movie.year %>)</h3>
+      <p><%= movie.genre %> | <%= movie.director %></p>
+      <p><%= movie.synopsis %></p>
+      <%= link_to 'Ver detalhes', movie_path(movie), class: 'btn btn-info' %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Você ainda não tem filmes favoritos.</p>
+<% end %>
