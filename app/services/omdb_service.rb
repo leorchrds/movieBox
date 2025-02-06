@@ -1,19 +1,21 @@
-require 'net/http'
-require 'json'
+require 'httparty'
 
 class OmdbService
-  BASE_URL = "http://www.omdbapi.com/"
+  BASE_URL = 'http://www.omdbapi.com/'
   API_KEY = ENV['OMDB_API_KEY']
 
+  include HTTParty
+  base_uri BASE_URL
+  default_params apikey: API_KEY
+  format :json
+
   def self.search_movies(title)
-    uri = URI("#{BASE_URL}?apikey=#{API_KEY}&s=#{URI.encode_www_form_component(title)}")
-    response = Net::HTTP.get(uri)
-    JSON.parse(response)["Search"] || []
+    response = get('/', query: { s: title })
+    response.parsed_response['Search'] || []
   end
 
   def self.get_movie_details(imdb_id)
-    uri = URI("#{BASE_URL}?apikey=#{API_KEY}&i=#{imdb_id}")
-    response = Net::HTTP.get(uri)
-    JSON.parse(response)
+    response = get('/', query: { i: imdb_id })
+    response.parsed_response
   end
 end
