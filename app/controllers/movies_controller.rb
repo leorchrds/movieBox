@@ -1,5 +1,4 @@
 class MoviesController < ApplicationController
-
   def index
     @movies = Movie.all
   end
@@ -35,19 +34,40 @@ class MoviesController < ApplicationController
       render :edit
     end
   end
+
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to movies_path, notice: 'Filme removido dos favoritos.'
   end
 
-  # Buscar filmes usando a API OMDb
   def search
-    if params[:query].present?
-      @movies = OmdbService.search_movies(params[:query])
-    else
-      @movies = []
+    @movies = if params[:query].present?
+                OmdbService.search_movies(params[:query])
+              else
+                []
+              end
+  end
+
+  def favorite
+    movie_data = OmdbService.get_movie_details(params[:imdb_id])
+
+    movie = Movie.find_or_create_by(imdb_id: movie_data['imdbID']) do |m|
+      m.title = movie_data['Title']
+      m.year = movie_data['Year']
+      m.genre = movie_data['Genre']
+      m.director = movie_data['Director']
+      m.synopsis = movie_data['Plot']
+      m.poster = movie_data['Poster']
     end
+
+    current_user.favorite_movies << movie unless current_user.favorite_movies.include?(movie)
+
+    redirect_to movies_path, notice: 'Filme adicionado aos favoritos.'
+  end
+
+  def favorites
+    @movies = current_user.favorite_movies
   end
 
   private
