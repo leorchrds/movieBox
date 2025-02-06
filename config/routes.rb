@@ -17,10 +17,12 @@ Rails.application.routes.draw do
   resources :movies, only: %i[index show new create edit update destroy] do
     collection do
       post 'favorite'
-    end
-
-    collection do
       get 'favorites'
     end
+
+    member do
+      delete 'unfavorite'
+    end
   end
+  
 end

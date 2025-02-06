@@ -3,6 +3,7 @@
   <% @movies.each do |movie| %>
     <div>
       <h3><%= movie.title %> (<%= movie.year %>)</h3>
+      <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="max-width: 150px; height: auto;">
       <p><%= movie.genre %> | <%= movie.director %></p>
       <p><%= movie.synopsis %></p>
       <%= link_to 'Ver detalhes', movie_path(movie), class: 'btn btn-info' %>

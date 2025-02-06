@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    @movies = current_user.favorite_movies
   end
 
   def new
@@ -68,6 +68,19 @@ class MoviesController < ApplicationController
 
   def favorites
     @movies = current_user.favorite_movies
+  end
+
+  def unfavorite
+    movie = Movie.find(params[:id])
+
+    if current_user.favorite_movies.include?(movie)
+      current_user.favorite_movies.delete(movie)
+      flash[:notice] = 'Filme removido dos favoritos.'
+    else
+      flash[:alert] = 'Filme não encontrado nos favoritos.'
+    end
+
+    redirect_to favorites_movies_path
   end
 
   private

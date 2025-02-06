@@ -12,6 +12,8 @@
     <h3><%= movie.title %></h3>
     <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="max-width: 150px; height: auto;">
     <%= link_to 'Ver detalhes', movie_path(movie), class: 'btn btn-info' %>
+
+    <%= button_to "Remover dos Favoritos", unfavorite_movie_path(movie), method: :delete, class: "btn btn-danger" %>
   </div>
 <% end %>
 <% if @movies.empty? && @movies.any? { |movie| movie['Title'] } %>
