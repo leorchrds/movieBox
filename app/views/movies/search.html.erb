@@ -1,14 +1,9 @@
-<h2>Buscar Filmes</h2>
-<%= form_with url: search_movies_path, method: :get, local: true do |form| %>
-  <%= form.label :query, 'Título do filme:' %>
-  <%= form.text_field :query, class: 'form-control' %>
-  <%= form.submit 'Buscar', class: 'btn btn-success' %>
-<% end %>
-<h3>Resultados da Busca</h3>
-<% @movies.each do |movie| %>
-  <div class="movie">
-    <h3><%= movie["Title"] %> (<%= movie["Year"] %>)</h3>
-    <img src="<%= movie['Poster'] %>" alt="<%= movie["Title"] %>" />
-    <%= button_to 'Adicionar aos favoritos', favorite_movies_path, method: :post, params: { imdb_id: movie["imdbID"], title: movie["Title"], year: movie["Year"], genre: movie["Genre"], director: movie["Director"], synopsis: movie["Plot"], poster: movie["Poster"] }, class: 'btn btn-primary' %>
+<div class="container py-5">
+  <h2 class="text-white mb-4">Search Movies</h2>
+  <%= render 'movies/partials/search_form' %>
+
+  <h3 class="text-white mb-4">Search Results</h3>
+  <div class="row g-4">
+    <%= render 'movies/partials/search_results', movies: @movies %>
   </div>
-<% end %>
+</div>

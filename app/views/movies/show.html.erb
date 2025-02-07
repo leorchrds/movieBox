@@ -1,19 +1,14 @@
-<!-- app/views/movies/show.html.erb -->
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="<%= @movie.poster %>" alt="<%= @movie.title %>" class="img-fluid rounded-4 shadow">
+    </div>
+    <div class="col-md-8">
+      <%= render 'movies/partials/movie_details', movie: @movie %>
+      <h3 class="text-white mb-3">User Comments</h3>
+      <%= render 'movies/partials/comment_form', movie: @movie %>
 
-<h1><%= @movie.title %></h1>
-
-<p><strong>Ano:</strong> <%= @movie.year %></p>
-<p><strong>Gênero:</strong> <%= @movie.genre %></p>
-<p><strong>Diretor:</strong> <%= @movie.director %></p>
-<p><strong>Sinopse:</strong> <%= @movie.synopsis %></p>
-<img src="<%= @movie.poster %>" alt="<%= @movie.title %>" style="max-width: 150px; height: auto;">
-
-<h3>Comentários do usuário:</h3>
-<%= form_with model: @movie, local: true do |form| %>
-  <%= form.label :user_comment, 'Comente sobre o filme' %>
-  <%= form.text_area :user_comment, class: 'form-control' %>
-  <%= form.submit 'Salvar comentário', class: 'btn btn-success' %>
-<% end %>
-
-<%= link_to 'Editar filme', edit_movie_path(@movie), class: 'btn btn-warning' %> |
-<%= link_to 'Voltar', movies_path, class: 'btn btn-secondary' %>
+      <%= render 'movies/partials/movie_actions', movie: @movie %>
+    </div>
+  </div>
+</div>

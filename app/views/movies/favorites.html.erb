@@ -1,7 +1,8 @@
 <h1>Meus Filmes Favoritos</h1>
+
 <% if @movies.any? %>
   <% @movies.each do |movie| %>
-    <div>
+    <div class="movie-card">
       <h3><%= movie.title %> (<%= movie.year %>)</h3>
       <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="max-width: 150px; height: auto;">
       <p><%= movie.genre %> | <%= movie.director %></p>

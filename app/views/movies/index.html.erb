@@ -1,28 +1,134 @@
-<!-- app/views/movies/index.html.erb -->
-<%= link_to 'Adicionar novo filme', new_movie_path, class: 'btn btn-primary' %>
-<h2>Buscar Filmes</h2>
-<%= form_with url: search_movies_path, method: :get, local: true do |form| %>
-  <%= form.label :query, 'Título do filme:' %>
-  <%= form.text_field :query, class: 'form-control' %>
-  <%= form.submit 'Buscar', class: 'btn btn-success' %>
-<% end %>
-<h2>Filmes Favoritos</h2>
-<% @movies.each do |movie| %>
-  <div>
-    <h3><%= movie.title %></h3>
-    <img src="<%= movie.poster %>" alt="<%= movie.title %>" style="max-width: 150px; height: auto;">
-    <%= link_to 'Ver detalhes', movie_path(movie), class: 'btn btn-info' %>
+<%= render 'movies/partials/search_form' %>
+<% if @movies.any? %>
+  <h3 class="text-white mb-4">Favorite Movies</h3>
 
-    <%= button_to "Remover dos Favoritos", unfavorite_movie_path(movie), method: :delete, class: "btn btn-danger" %>
+  <div class="row g-4">
+    <% @movies.each do |movie| %>
+      <%= render 'movies/partials/movie_card', movie: movie %>
+    <% end %>
   </div>
+<% else %>
+   <%= render 'movies/partials/no_movies_message' %>
 <% end %>
-<% if @movies.empty? && @movies.any? { |movie| movie['Title'] } %>
-  <h3>Resultados da Busca</h3>
-  <% @movies.each do |movie| %>
-    <div class="movie">
-      <h3><%= movie["Title"] %> (<%= movie["Year"] %>)</h3>
-      <img src="<%= movie['Poster'] %>" alt="<%= movie["Title"] %>" />
-      <%= link_to 'Adicionar aos favoritos', new_movie_path(title: movie["Title"], year: movie["Year"], genre: movie["Genre"], director: movie["Director"], synopsis: movie["Plot"]), class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+
+
+<% content_for :head do %>
+  <style>
+
+    .no-movies-message {
+      background-color: #212529;
+      border: 2px solid #e50914;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .no-movies-message i {
+      font-size: 2rem;
+      color: #e50914;
+    }
+
+    .no-movies-message p {
+      font-weight: bold;
+    }
+
+    .no-movies-message:hover {
+      background-color: #343a40;
+      border-color: #b2070f;
+      transform: translateY(-5px);
+    }
+
+    .card-title {
+      min-height: 35px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-text {
+      min-height: 45px;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: #141414;
+    }
+
+    .movie-app {
+      background-color: #141414;
+    }
+
+    .movie-card {
+      max-width: 220px;
+      height: 350px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+
+    .poster-wrapper {
+      overflow: hidden;
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .poster-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .movie-card:hover .poster-overlay {
+      opacity: 1;
+    }
+
+    .text-light-gray {
+      color: #adb5bd;
+    }
+
+    .form-control {
+      background-color: #2b3035;
+      border: 1px solid #495057;
+    }
+
+    .form-control:focus {
+      background-color: #2b3035;
+      border-color: #0d6efd;
+      box-shadow: none;
+      color: white;
+    }
+
+    .btn-outline-light:hover {
+      color: #000;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+
+    .btn-primary {
+      background-color: #e50914;
+      border-color: #e50914;
+    }
+
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: #b2070f;
+      border-color: #b2070f;
+    }
+  </style>
 <% end %>
