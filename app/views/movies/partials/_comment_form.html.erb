@@ -1,0 +1,7 @@
+<%= form_with model: @movie, local: true, class: 'mb-4' do |form| %>
+  <div class="mb-3">
+    <%= form.label :user_comment, 'Add a comment', class: 'form-label' %>
+    <%= form.text_area :user_comment, class: 'form-control bg-dark text-white', rows: 3 %>
+  </div>
+  <%= form.submit 'Save Comment', class: 'btn btn-primary' %>
+<% end %>

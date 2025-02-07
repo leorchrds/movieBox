@@ -1,0 +1,28 @@
+<div class="col-sm-6 col-lg-4 col-xl-3">
+  <div class="movie-card card bg-black border-0 h-100 rounded-4 shadow-lg">
+    <div class="poster-wrapper position-relative">
+      <%= image_tag movie.poster, 
+          class: "card-img-top rounded-top-4",
+          style: "height: 180px; object-fit: cover;" %>
+      <div class="poster-overlay">
+        <%= link_to movie_path(movie), class: 'btn btn-light btn-lg rounded-circle' do %>
+          <i class="fas fa-plus"></i>
+        <% end %>
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column p-3">
+      <h5 class="card-title text-white mb-1"><%= movie.title %></h5>
+      <p class="card-text text-light-gray mb-2 flex-grow-1 mt-0"><%= movie.synopsis.truncate(100) %></p>
+      <div class="d-flex gap-2 mt-auto">
+        <%= link_to movie_path(movie), class: 'btn btn-outline-light flex-grow-1' do %>
+          <i class="fas fa-info-circle me-2"></i>Details
+        <% end %>
+        <%= button_to unfavorite_movie_path(movie), 
+            method: :delete,
+            class: "btn btn-outline-danger flex-grow-1" do %>
+          <i class="fas fa-heart-broken me-2"></i>Remove
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

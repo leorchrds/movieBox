@@ -1,0 +1,20 @@
+<div class="movie-app min-vh-100">
+  <div class="container py-5">
+    <div class="search-section mb-5">
+      <div class="card bg-black border-0 rounded-4 shadow">
+        <div class="card-body p-4">
+          <h3 class="text-white mb-4">Search Movies</h3>
+          <%= form_with url: search_movies_path, method: :get, local: true do |form| %>
+            <div class="input-group input-group-lg">
+              <%= form.text_field :query, 
+                  class: 'form-control bg-dark text-white border-secondary', 
+                  placeholder: 'Enter movie title...',
+                  style: 'border-right: none;' %>
+              <button class="btn btn-primary px-4" type="submit">
+                <i class="fas fa-search me-2"></i>Search
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
