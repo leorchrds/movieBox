@@ -7,14 +7,14 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
-
   root 'movies#index'
 
-  # pesquisa de filmes
+  # Movies search
   get 'movies/search', to: 'movies#search', as: 'search_movies'
 
+  # Movie resources with nested routes for comments and favorites
   resources :movies, only: %i[index show new create edit update destroy] do
+    # Favorite/unfavorite actions
     collection do
       post 'favorite'
       get 'favorites'
@@ -22,7 +22,10 @@ Rails.application.routes.draw do
 
     member do
       delete 'unfavorite'
+      post 'add_comment'
+      delete 'remove_comment'
+      get 'edit_comment/:comment_id', to: 'movies#edit_comment', as: 'edit_comment'
+      patch 'update_comment/:comment_id', to: 'movies#update_comment', as: 'update_comment'
     end
   end
-  
 end

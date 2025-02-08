@@ -1,6 +1,10 @@
 class MoviesController < ApplicationController
   def index
-    @movies = current_user.favorite_movies
+    if current_user
+      @movies = current_user.favorite_movies
+    else
+      redirect_to new_user_session_path, alert: 'You need to be logged in to view your favorite movies.'
+    end
   end
 
   def new
@@ -49,6 +53,35 @@ class MoviesController < ApplicationController
               end
   end
 
+  def add_comment
+    @movie = Movie.find(params[:id])
+
+    if params[:comment].present?
+      @movie.add_comment(current_user, params[:comment])
+      flash[:success] = 'Comment added successfully!'
+    else
+      flash[:error] = 'Comment cannot be empty.'
+    end
+
+    redirect_to movie_path(@movie)
+  end
+
+  def remove_comment
+    @movie = Movie.find(params[:id])
+    comment_id = params[:comment_id]
+    comment = @movie.comments.find { |c| c['_id'].to_s == comment_id }
+
+    if comment
+      @movie.comments.delete(comment)
+      @movie.save
+      flash[:success] = 'Comment deleted successfully!'
+    else
+      flash[:error] = 'Comment not found.'
+    end
+
+    redirect_to movie_path(@movie)
+  end
+
   def favorite
     movie_data = OmdbService.get_movie_details(params[:imdb_id])
 
@@ -81,6 +114,32 @@ class MoviesController < ApplicationController
     end
 
     redirect_to movies_path
+  end
+
+  def edit_comment
+    @movie = Movie.find(params[:id])
+    @comment = @movie.comments.find { |c| c['_id'].to_s == params[:comment_id] }
+
+    return unless @comment.nil?
+
+    redirect_to movie_path(@movie), alert: 'Comentário não encontrado.'
+  end
+
+  def update_comment
+    @movie = Movie.find(params[:id])
+    @comment = @movie.comments.find { |c| c['_id'].to_s == params[:comment_id] }
+
+    if @comment.nil?
+      redirect_to movie_path(@movie), alert: 'Comentário não encontrado.'
+    else
+      @comment['content'] = params[:content]
+
+      if @movie.save
+        redirect_to movie_path(@movie), notice: 'Comentário atualizado com sucesso!'
+      else
+        redirect_to movie_path(@movie), alert: 'Erro ao atualizar o comentário.'
+      end
+    end
   end
 
   private
