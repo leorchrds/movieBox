@@ -5,10 +5,42 @@
     </div>
     <div class="col-md-8">
       <%= render 'movies/partials/movie_details', movie: @movie %>
-      <h3 class="text-white mb-3">User Comments</h3>
-      <%= render 'movies/partials/comment_form', movie: @movie %>
-
-      <%= render 'movies/partials/movie_actions', movie: @movie %>
+      <h3 class="text-white mb-4">User Comments</h3>
+      <div class="comment-form-container mb-5">
+        <%= form_with url: add_comment_movie_path(@movie), method: :post, local: true, class: "comment-form" do |form| %>
+          <div class="mb-3 position-relative">
+            <%= form.text_area :comment, class: "form-control bg-dark text-white", rows: 3, placeholder: "Share your thoughts about the movie...", id: "commentTextarea" %>
+          </div>
+          <%= form.submit "Post Comment", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      <% if @movie.comments.any? %>
+        <div class="comments-list mt-4">
+          <h5 class="text-white mb-4">Previous Comments</h5>
+          <% @movie.comments.each do |comment| %>
+            <div class="comment-card mb-4">
+              <div class="comment-header d-flex align-items-center mb-2">
+                <div class="user-avatar"><%= comment["user_name"].first.upcase %></div>
+                <div class="user-info ml-3">
+                  <strong class="text-white"><%= comment["user_name"] %></strong>
+                  <small class="text-muted d-block"><%= comment["created_at"].strftime("%d %b %Y, %H:%M") %></small>
+                </div>
+              </div>
+              <p class="comment-content mb-3"><%= comment["content"] %></p>
+              <% if current_user && current_user.name == comment["user_name"] %>
+                <div class="comment-actions">
+                  <%= link_to edit_comment_movie_path(@movie, comment_id: comment["_id"]), class: 'btn btn-outline-light btn-sm', style: 'margin-right: 5px;' do %>
+                    <i class="fas fa-edit"></i> Edit
+                  <% end %>
+                  <%= button_to remove_comment_movie_path(@movie, comment_id: comment["_id"]), method: :delete, class: 'btn btn-outline-danger btn-sm', form: { style: 'display: inline-block; margin-left: 5px;' } do %>
+                    <i class="fas fa-trash-alt"></i> Delete
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
