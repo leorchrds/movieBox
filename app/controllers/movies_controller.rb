@@ -80,7 +80,7 @@ class MoviesController < ApplicationController
       flash[:alert] = 'Filme não encontrado nos favoritos.'
     end
 
-    redirect_to favorites_movies_path
+    redirect_to movies_path
   end
 
   private

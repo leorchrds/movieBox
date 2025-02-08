@@ -1,0 +1,15 @@
+.card-title {
+  min-height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-text {
+  min-height: 45px;
+  overflow: hidden;
+}
+
+.text-light-gray {
+  color: #adb5bd;
+}

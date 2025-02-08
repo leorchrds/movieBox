@@ -23,22 +23,22 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <%= link_to root_path, class: "nav-link" do %>
-                <i class="fas fa-home me-1"></i> Início
+                <i class="fas fa-home me-1"></i> Home
               <% end %>
             </li>
             <% if user_signed_in? %>
               <li class="nav-item">
-                <span class="nav-link">Bem-vindo, <%= current_user.email %></span>
+                <span class="nav-link">Welcome, <%= current_user.email %></span>
               </li>
               <li class="nav-item">
                 <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-link nav-link", data: { confirm: "Tem certeza que deseja sair?" } do %>
-                  <i class="fas fa-sign-out-alt me-1"></i> Sair
+                  <i class="fas fa-sign-out-alt me-1"></i> Leave
                 <% end %>
               </li>
             <% else %>
               <li class="nav-item">
                 <%= link_to new_user_session_path, class: "nav-link" do %>
-                  <i class="fas fa-sign-in-alt me-1"></i> Entrar
+                  <i class="fas fa-sign-in-alt me-1"></i> Enter
                 <% end %>
               </li>
             <% end %>

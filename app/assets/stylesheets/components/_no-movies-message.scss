@@ -1,0 +1,23 @@
+.no-movies-message {
+  background-color: #212529;
+  border: 2px solid #e50914;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.no-movies-message i {
+  font-size: 2rem;
+  color: #e50914;
+}
+
+.no-movies-message p {
+  font-weight: bold;
+}
+
+.no-movies-message:hover {
+  background-color: #343a40;
+  border-color: #b2070f;
+  transform: translateY(-5px);
+}

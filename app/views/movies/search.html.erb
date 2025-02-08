@@ -1,9 +1,15 @@
-<div class="container py-5">
-  <h2 class="text-white mb-4">Search Movies</h2>
+
   <%= render 'movies/partials/search_form' %>
 
-  <h3 class="text-white mb-4">Search Results</h3>
-  <div class="row g-4">
-    <%= render 'movies/partials/search_results', movies: @movies %>
-  </div>
-</div>
+  <% if @movies.present? %>
+    <h3 class="text-white mb-4">Search Results</h3>
+    <div class="row g-4">
+      <%= render 'movies/partials/search_results', movies: @movies %>
+    </div>
+  <% else %>
+    <div class="no-movies-message d-flex align-items-center justify-content-center p-4 rounded-3 shadow-lg text-center">
+      <i class="fas fa-exclamation-triangle me-3"></i>
+      <p class="text-white mb-0">No movies found. Please try another search.</p>
+    </div>
+  <% end %>
+
