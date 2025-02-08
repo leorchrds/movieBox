@@ -6,8 +6,9 @@ class User
          :recoverable, :rememberable, :validatable
 
   ## Database authenticatable
-  field :email,              type: String, default: ""
-  field :encrypted_password, type: String, default: ""
+  field :name, type: String
+  field :email,              type: String, default: ''
+  field :encrypted_password, type: String, default: ''
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -16,7 +17,9 @@ class User
   ## Rememberable
   field :remember_created_at, type: Time
 
-  has_and_belongs_to_many :favorite_movies, class_name: "Movie"
+  has_and_belongs_to_many :favorite_movies, class_name: 'Movie'
+
+  validates :name, presence: true, length: { minimum: 2 }
 
   include Mongoid::Timestamps
 end

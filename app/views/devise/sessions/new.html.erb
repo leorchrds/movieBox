@@ -1,159 +1,44 @@
-<!-- app/views/devise/sessions/new.html.erb -->
-<div class="login-container">
-  <div class="login-content">
-    <div class="login-header">
+<div class="auth-container">
+  <div class="auth-content">
+    <div class="auth-header">
       <h1 class="brand-name">MovieBox</h1>
       <p class="brand-tagline">Your Personal Movie Collection</p>
     </div>
-    <div class="login-form-container">
-      <h2 class="login-title">Welcome Back</h2>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'login-form' }) do |f| %>
+    <div class="auth-form-container">
+      <h2 class="auth-title">Welcome Back</h2>
+      <% if flash[:alert] %>
+        <div class="error-message">
+          <div class="error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <div class="error-content">
+            <h4>Oops! Something went wrong</h4>
+            <p><%= flash[:alert] %></p>
+          </div>
+        </div>
+      <% end %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'auth-form' }) do |f| %>
         <div class="form-group">
           <%= f.label :email, class: 'form-label' %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Enter your email' %>
         </div>
-
         <div class="form-group">
           <%= f.label :password, class: 'form-label' %>
           <%= f.password_field :password, autocomplete: "current-password", class: 'form-control', placeholder: 'Enter your password' %>
         </div>
-
         <% if devise_mapping.rememberable? %>
           <div class="form-check">
             <%= f.check_box :remember_me, class: 'form-check-input' %>
             <%= f.label :remember_me, class: 'form-check-label' %>
           </div>
         <% end %>
-
-        <%= f.submit "Log in", class: 'btn btn-primary btn-block' %>
+        <div class="btn-submit-wrapper">
+          <%= f.submit "Log in", class: 'btn btn-primary' %>
+        </div>
       <% end %>
-
-      <div class="login-links">
+      <div class="auth-links">
         <%= render "devise/shared/links" %>
       </div>
     </div>
   </div>
 </div>
-
-<% content_for :head do %>
-  <style>
-    .login-container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-image: url('https://source.unsplash.com/1600x900/?cinema,movies');
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .login-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .login-content {
-      background: rgba(26, 26, 26, 0.9);
-      border-radius: 10px;
-      padding: 2rem;
-      width: 100%;
-      max-width: 400px;
-      position: relative;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .login-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .brand-name {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #e50914;
-      margin-bottom: 0.5rem;
-    }
-
-    .brand-tagline {
-      color: #adb5bd;
-      font-size: 1rem;
-    }
-
-    .login-title {
-      color: #ffffff;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-
-    .login-form-container {
-      background: rgba(0, 0, 0, 0.2);
-      padding: 2rem;
-      border-radius: 5px;
-    }
-
-    .login-form .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .login-form .form-label {
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .login-form .form-control {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      transition: all 0.3s ease;
-    }
-
-    .login-form .form-control:focus {
-      background-color: rgba(255, 255, 255, 0.2);
-      border-color: #e50914;
-      box-shadow: none;
-    }
-
-    .login-form .btn-primary {
-      background-color: #e50914;
-      border-color: #e50914;
-      padding: 0.75rem;
-      font-size: 1rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-
-    .login-form .btn-primary:hover,
-    .login-form .btn-primary:focus {
-      background-color: #b2070f;
-      border-color: #b2070f;
-      transform: translateY(-2px);
-    }
-
-    .login-links {
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-
-    .login-links a {
-      color: #adb5bd;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .login-links a:hover {
-      color: #ffffff;
-    }
-
-    .form-check-label {
-      color: #adb5bd;
-    }
-  </style>
-<% end %>
