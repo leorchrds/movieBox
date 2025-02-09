@@ -1,12 +1,14 @@
 <%= render 'movies/partials/search_form' %>
-  <% if @movies.any? %>
-    <h3 class="text-white mb-4">Favorite Movies</h3>
-
-    <div class="row g-4">
-      <% @movies.each do |movie| %>
-        <%= render 'movies/partials/movie_card', movie: movie %>
-      <% end %>
-    </div>
-  <% else %>
-    <%= render 'movies/partials/no_movies_message' %>
+<% if @movies.any? %>
+  <h3 class="text-white mb-4">Favorite Movies</h3>
+  <div class="row g-4">
+    <% @movies.each do |movie| %>
+      <%= render 'movies/partials/movie_card', movie: movie %>
+    <% end %>
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @movies %>
+  </div>
+<% else %>
+  <%= render 'movies/partials/no_movies_message' %>
 <% end %>
