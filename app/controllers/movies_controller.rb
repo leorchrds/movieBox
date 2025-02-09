@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   def index
     if current_user
-      @movies = current_user.favorite_movies
+      @movies = current_user.favorite_movies.page(params[:page]).per(20)
     else
       redirect_to new_user_session_path, alert: 'You need to be logged in to view your favorite movies.'
     end

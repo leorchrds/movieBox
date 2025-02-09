@@ -48,9 +48,12 @@ group :development do
   gem 'bootstrap'
   gem 'devise'
   gem 'dotenv-rails'
+  gem 'kaminari'
+  gem 'kaminari-mongoid'
   gem 'mongoid', github: 'mongodb/mongoid'
   gem 'sassc-rails'
   gem 'web-console'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
