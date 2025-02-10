@@ -45,13 +45,13 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem 'bootstrap'
+  gem 'bootstrap', '~> 5.3.2'
   gem 'devise'
   gem 'dotenv-rails'
   gem 'kaminari'
   gem 'kaminari-mongoid'
   gem 'mongoid', github: 'mongodb/mongoid'
-  gem 'sassc-rails'
+  gem 'sassc-rails', '~> 2.1'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -69,3 +69,6 @@ group :test do
 end
 
 gem 'httparty', '~> 0.22.0'
+
+# Autoprefixer for CSS
+gem 'autoprefixer-rails'
