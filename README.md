@@ -26,7 +26,7 @@ https://github.com/user-attachments/assets/ab0d58ab-64ce-427a-97af-6baaedf06927
 
 Antes de rodar a aplicação, você precisa ter os seguintes softwares instalados:
 
-- **Ruby** (versão 2.7.2 ou superior)
+- **Ruby** (versão 3.0.0 ou superior)
 - **Rails** (versão 7.1.5 ou superior)
 - **Docker** (para containerizar a aplicação)
 - **Git** (para controle de versão)
@@ -70,6 +70,14 @@ Este comando irá:
 - Subir os containers para o MongoDB e a aplicação Rails
 
 O Docker irá garantir que a aplicação e o banco de dados estejam configurados corretamente, sem a necessidade de instalação manual do MongoDB.
+
+Observação: Caso os containers tenham sido interrompidos e você precise iniciá-los manualmente, use os seguintes comandos:
+
+```bash
+docker start moviebox_app
+docker start moviebox_mongo
+```
+Esses comandos irão iniciar os containers da aplicação Rails e do MongoDB, respectivamente.
 
 #### **4. Acessar a Aplicação**
 
